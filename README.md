@@ -1,3 +1,33 @@
+# External API Mock Examples
+
+## Fixture + Nock (2/2 passed)
+
+```
+pnpm jest --config ./test/jest-e2e.json ./test/1-fixture-nock.e2e-spec.ts
+```
+
+## Live + Nock (1/2 passed)
+
+```
+pnpm start:dev 
+```
+```
+pnpm jest --config ./test/jest-e2e.json ./test/2-live-nock.e2e-spec.ts
+```
+
+## Live + K8s
+
+```
+skaffold dev -p local
+```
+```
+pnpm jest --config ./test/jest-e2e.json ./test/3-live-k8s_redirect.e2e-spec.ts
+```
+
+---
+---
+---
+
 <p align="center">
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
 </p>
