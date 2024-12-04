@@ -1,0 +1,32 @@
+apiVersion: skaffold/v4beta1
+kind: Config
+metadata:
+  name: example-server
+deploy:
+  kubeContext: docker-desktop
+  kubectl: {}
+build:
+  local:
+    push: false
+    concurrency: 0
+  tagPolicy:
+    envTemplate:
+      template: "skaffold-{{.USER}}"
+  artifacts:
+    - image: example-server
+      context: .
+      docker:
+        dockerfile: docker/Dockerfile
+profiles:
+  - name: local
+    portForward:
+      - resourceType: service
+        resourceName: example-server
+        namespace: example
+        port: 3000
+        localPort: 3030
+    manifests:
+      kustomize:
+        paths:
+        - k8s/infra
+        - k8s/example/overlays/local

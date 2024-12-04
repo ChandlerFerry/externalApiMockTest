@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: example-server
+  labels:
+    app: example-server
+    repo: backend-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: example-server
+  template:
+    metadata:
+      labels:
+        app: example-server
+    spec:
+      containers:
+        - name: example-server
+          image: example-server
+          ports:
+            - containerPort: 3000
+          envFrom:
+            - configMapRef:
+                name: example-server-config
