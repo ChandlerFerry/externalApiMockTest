@@ -25,6 +25,52 @@ pnpm jest --config ./test/jest-e2e.json ./test/3-live-k8s_redirect.e2e-spec.ts
 ```
 
 ---
+
+## Tests Ran
+### Service/Ingress (Fail - doesn't intercept Egress)
+```
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: mock-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /json/1
+spec:
+  rules:
+  - host: jsonplaceholder.typicode.com
+    http:
+      paths:
+      - path: /todos/1
+        pathType: Prefix
+        backend:
+          service:
+            name: mock-service
+            port:
+              number: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mock-service
+  labels:
+    app: mock
+spec:
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 80
+  type: ExternalName
+  externalName: r39qj.wiremockapi.cloud
+```
+### DNS (Fail - can't use IP for my current mock provider)
+```
+  dnsPolicy: Default
+  hostAliases:
+  - ip: "10.0.0.1"
+    hostnames:
+    - "jsonplaceholder.typicode.com"
+```
+---
 ---
 ---
 
