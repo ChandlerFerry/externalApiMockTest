@@ -23,3 +23,11 @@ spec:
           envFrom:
             - configMapRef:
                 name: example-server-config
+          volumeMounts:
+            - name: config-volume
+              mountPath: /etc/config
+              readOnly: true  
+      volumes:
+        - name: config-volume
+          configMap:
+            name: example-server-mounted-config

@@ -3,3 +3,13 @@ kind: Kustomization
 namespace: example
 resources:
   - example-server.yaml
+  - example-server-mounted.yaml
+patches:
+  - path: patches/patch-configmap.yaml
+    target:
+      kind: ConfigMap
+      name: example-server-config
+  - path: patches/patch-mounted-configmap.yaml
+    target:
+      kind: ConfigMap
+      name: example-server-mounted-config

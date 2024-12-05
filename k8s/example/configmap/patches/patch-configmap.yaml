@@ -3,4 +3,4 @@ kind: ConfigMap
 metadata:
   name: example-server-config
 data:
-  testaaaaaaaaaaaaaaa: "test111111111111"
+  testbbbbbbbbbbbb: "test99999999999"
