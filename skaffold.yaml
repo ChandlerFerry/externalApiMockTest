@@ -30,3 +30,15 @@ profiles:
         paths:
         - k8s/infra
         - k8s/example/overlays/local
+  - name: envoy
+    portForward:
+      - resourceType: service
+        resourceName: example-server
+        namespace: example
+        port: 3000
+        localPort: 3030
+    manifests:
+      kustomize:
+        paths:
+        - k8s/infra
+        - k8s/envoy/overlays/local
